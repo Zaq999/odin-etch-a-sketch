@@ -2,18 +2,19 @@ let userGridSize = 16;
 const container = document.querySelector("#container");
 const clearBtn = document.querySelector("#clear");
 const sizeBtn = document.querySelector("#size");
-const rainbowBtn = document.querySelector("#rainbow")
+const rainbowBtn = document.querySelector("#rainbow");
+const singleColorInput = document.querySelector("#singleColor");
 
-const setBg = () => {
-  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+const setRandomBg = () => {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   newColor = "#" + randomColor;
   return newColor;
-}
+};
 
-function createGrid () {
+function createGrid() {
   for (let i = 0; i < userGridSize; i++) {
     const column = document.createElement("div");
-    column.setAttribute("id", "column")
+    column.setAttribute("id", "column");
     column.setAttribute(
       "style",
       "display: flex; flex-grow: 1; flex-wrap: wrap; flex-direction: column; ",
@@ -22,6 +23,7 @@ function createGrid () {
 
     for (let i = 0; i < userGridSize; i++) {
       const row = document.createElement("div");
+      row.setAttribute("id", "row");
       row.setAttribute(
         "style",
         "background: white; border: 1px solid; flex-grow: 1;",
@@ -29,29 +31,28 @@ function createGrid () {
       column.appendChild(row);
 
       row.addEventListener("mouseover", () => {
-      row.style.backgroundColor = setBg();
+        row.style.backgroundColor = setRandomBg();
       });
 
       clearBtn.addEventListener("click", () => {
-      row.style.backgroundColor = "white";
+        row.style.backgroundColor = "white";
       });
     }
-    
+  }
 }
-}
+
 createGrid();
+
 sizeBtn.addEventListener("click", () => {
-  for(let i = 0; i < userGridSize; i++) {
-    const columnPointer = document.querySelector("#column")
+  for (let i = 0; i < userGridSize; i++) {
+    const columnPointer = document.querySelector("#column");
     container.removeChild(columnPointer);
   }
-  userGridSize = prompt("Choose grid size from 1 to 100 (per row).", "1-100");
-  if(userGridSize > 100) {
-    userGridSize = prompt("You want you'r PC to explode? Please choose from 1 to 100");
+  userGridSize = prompt("Choose grid size from 1 to 100 (per side).", "1-100");
+  if (userGridSize > 100) {
+    userGridSize = prompt(
+      "You want you'r PC to explode? Please choose from 1 to 100",
+    );
   }
   createGrid();
-})
-rainbowBtn.addEventListener("click", () => {
-
-  })
-
+});
